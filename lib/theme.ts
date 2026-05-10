@@ -13,26 +13,25 @@
 
 // ── Primary brand color ───────────────────────────────────────────────────────
 // 🎨 Change this one value to rebrand the whole app
-export const ACCENT = '#0ea5a4'           // teal — swap to your primary brand color
+export const ACCENT = '#d4a843'           // amber gold
 
-// Derived from ACCENT — adjust opacity as needed
-export const ACCENT_DIM = 'rgba(14,165,164,0.12)'
-export const ACCENT_BORDER = 'rgba(14,165,164,0.30)'
-export const ACCENT_GLOW = 'rgba(14,165,164,0.20)'
-// Text color on dark background using accent tone
-export const ACCENT_LIGHT = '#5eead4'
+// Derived from ACCENT
+export const ACCENT_DIM = 'rgba(212,168,67,0.12)'
+export const ACCENT_BORDER = 'rgba(212,168,67,0.30)'
+export const ACCENT_GLOW = 'rgba(212,168,67,0.20)'
+export const ACCENT_LIGHT = '#e0b756'
 
 // ── Backgrounds ───────────────────────────────────────────────────────────────
-export const BG = '#0d0d0d'        // main app background
-export const SURFACE = '#1a1a1a'        // cards, inputs
-export const SURFACE2 = '#242424'        // elevated surface (sheet panels, etc.)
-export const SURFACE3 = '#2e2e2e'        // even more elevated
+export const BG = '#0a0a0a'
+export const SURFACE = '#1a1a1a'
+export const SURFACE2 = '#111111'
+export const SURFACE3 = '#262626'
 
 // ── Text ──────────────────────────────────────────────────────────────────────
-export const TEXT_PRIMARY = '#ffffff'
-export const TEXT_SECONDARY = 'rgba(255,255,255,0.55)'
-export const TEXT_TERTIARY = 'rgba(255,255,255,0.28)'
-export const TEXT_DISABLED = 'rgba(255,255,255,0.18)'
+export const TEXT_PRIMARY = '#f5f5f5'
+export const TEXT_SECONDARY = '#a3a3a3'
+export const TEXT_TERTIARY = '#6b6b6b'
+export const TEXT_DISABLED = 'rgba(245,245,245,0.18)'
 
 // ── Borders ───────────────────────────────────────────────────────────────────
 export const BORDER = 'rgba(255,255,255,0.09)'

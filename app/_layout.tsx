@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Platform, DeviceEventEmitter } from 'react-native'
+import { View, StyleSheet, Platform, DeviceEventEmitter, Text as RNText } from 'react-native'
 import { Stack, useNavigationContainerRef, usePathname } from 'expo-router'
+import * as SplashScreen from 'expo-splash-screen'
+
+SplashScreen.preventAutoHideAsync().catch(() => {})
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/lib/queryClient'
 import * as Sentry from '@sentry/react-native'
@@ -27,6 +30,11 @@ import {
   Inter_700Bold,
   Inter_800ExtraBold,
 } from '@expo-google-fonts/inter'
+import {
+  Fraunces_400Regular,
+  Fraunces_700Bold,
+  Fraunces_900Black,
+} from '@expo-google-fonts/fraunces'
 import { ThemeProvider, DarkTheme } from '@react-navigation/native'
 import { PostHogProvider } from 'posthog-react-native'
 import { I18nextProvider } from 'react-i18next'
@@ -74,6 +82,21 @@ class ErrorBoundary extends React.Component<
     return this.props.children
   }
 }
+
+const splash = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  wordmark: {
+    fontFamily: 'Fraunces_700Bold',
+    fontSize: 32,
+    color: '#f5f5f5',
+    letterSpacing: -0.5,
+  },
+})
 
 const eb = StyleSheet.create({
   container: {
@@ -123,6 +146,9 @@ function RootLayout() {
     Inter_600SemiBold,
     Inter_700Bold,
     Inter_800ExtraBold,
+    Fraunces_400Regular,
+    Fraunces_700Bold,
+    Fraunces_900Black,
   })
 
   // null = still checking; true/false = auth state known
@@ -146,8 +172,9 @@ function RootLayout() {
     configureRevenueCat()
 
     if (!isSupabaseEnabled) {
-      // No credentials — stay on landing page, no errors thrown
-      setIsAuthed(false)
+      // No Supabase credentials — bypass auth for demo
+      setIsAuthed(true)
+      setOnboardingCompleted(true)
       return
     }
 
@@ -204,10 +231,21 @@ function RootLayout() {
     return () => sub.remove()
   }, [])
 
+  // Hide the native splash once fonts + auth state are both ready
+  useEffect(() => {
+    if (fontsLoaded && isAuthed !== null && i18nReady) {
+      SplashScreen.hideAsync().catch(() => {})
+    }
+  }, [fontsLoaded, isAuthed, i18nReady])
+
   // Show blank dark screen while session + i18n checks complete.
   // This prevents a flash of wrong content on launch.
   if (!fontsLoaded || isAuthed === null || !i18nReady || (isAuthed === true && onboardingCompleted === null)) {
-    return <View style={{ flex: 1, backgroundColor: BG }} />
+    return (
+      <View style={splash.root}>
+        <RNText style={splash.wordmark}>Counsel</RNText>
+      </View>
+    )
   }
 
   return (
@@ -248,6 +286,10 @@ function RootLayout() {
                         Accessible only when signed in + onboarding done. */}
                         <Stack.Protected guard={!!isAuthed && onboardingCompleted === true}>
                           <Stack.Screen name="(tabs)" />
+                          <Stack.Screen name="advice/[id]" />
+                          <Stack.Screen name="scenario/[id]" />
+                          <Stack.Screen name="situation/[id]" />
+                          <Stack.Screen name="score" />
                           <Stack.Screen name="detail/[id]" />
                           <Stack.Screen name="settings" />
                           <Stack.Screen name="support" />

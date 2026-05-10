@@ -1,13 +1,5 @@
-/**
- * Tabs layout — add new tabs by:
- *   1. Create app/(tabs)/<name>.tsx
- *   2. Add a tabBarIcon and tabBarLabel in the <Tabs.Screen> below.
- *
- * The custom TabBar renders itself — its tab list is driven entirely by
- * the screens registered here.
- */
 import { Tabs } from 'expo-router'
-import { House, Compass, Bell, CircleUser } from 'lucide-react-native'
+import { MessageSquareText, Swords, Archive, Sun } from 'lucide-react-native'
 import TabBar, { TAB_BAR_HEIGHT } from '@/components/TabBar'
 import { BG } from '@/lib/theme'
 
@@ -18,49 +10,50 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         sceneStyle: { backgroundColor: BG },
-        // Extra bottom padding so content clears the floating tab bar
         tabBarStyle: { height: TAB_BAR_HEIGHT },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Advise',
           tabBarIcon: ({ color, size }) => (
-            <House size={size} color={color} strokeWidth={1.6} />
+            <MessageSquareText size={size} color={color} strokeWidth={1.6} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="practice"
+        options={{
+          tabBarLabel: 'Practice',
+          tabBarIcon: ({ color, size }) => (
+            <Swords size={size} color={color} strokeWidth={1.6} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="history"
+        options={{
+          tabBarLabel: 'History',
+          tabBarIcon: ({ color, size }) => (
+            <Archive size={size} color={color} strokeWidth={1.6} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="today"
+        options={{
+          tabBarLabel: 'Today',
+          tabBarIcon: ({ color, size }) => (
+            <Sun size={size} color={color} strokeWidth={1.6} />
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="explore"
-        options={{
-          tabBarLabel: 'Explore',
-          tabBarIcon: ({ color, size }) => (
-            <Compass size={size} color={color} strokeWidth={1.6} />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="activity"
-        options={{
-          tabBarLabel: 'Activity',
-          tabBarIcon: ({ color, size }) => (
-            <Bell size={size} color={color} strokeWidth={1.6} />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="profile"
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <CircleUser size={size} color={color} strokeWidth={1.6} />
-          ),
-        }}
-      />
+      {/* Legacy template screens — hidden from tab bar */}
+      <Tabs.Screen name="explore"  options={{ href: null }} />
+      <Tabs.Screen name="activity" options={{ href: null }} />
+      <Tabs.Screen name="profile"  options={{ href: null }} />
     </Tabs>
   )
 }

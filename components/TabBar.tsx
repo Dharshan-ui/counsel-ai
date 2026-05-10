@@ -87,11 +87,17 @@ export default function TabBar({ state, navigation, descriptors }: BottomTabBarP
     if (!ev.defaultPrevented) navigation.navigate(name as never)
   }
 
+  // Only render tabs that have an icon — routes with href:null have no tabBarIcon.
+  const visibleRoutes = state.routes.filter(
+    (route) => !!descriptors[route.key].options.tabBarIcon
+  )
+
   const tabs = (
     <View style={s.bar}>
-      {state.routes.map((route, i) => {
+      {visibleRoutes.map((route) => {
+        const originalIndex = state.routes.indexOf(route)
         const { options } = descriptors[route.key]
-        const isActive = state.index === i
+        const isActive = state.index === originalIndex
         const label = typeof options.tabBarLabel === 'string'
           ? options.tabBarLabel
           : (options.title ?? route.name)
@@ -107,7 +113,7 @@ export default function TabBar({ state, navigation, descriptors }: BottomTabBarP
             label={label}
             isActive={isActive}
             icon={icon}
-            onPress={() => handlePress(route.name, route.key, i)}
+            onPress={() => handlePress(route.name, route.key, originalIndex)}
           />
         )
       })}
