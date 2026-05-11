@@ -10,27 +10,27 @@ Counsel is a mobile-first AI strategic advisor for high-stakes decisions — sal
 <table>
   <tr>
     <td><img src="docs/screenshots/01-advise-typed.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/02-advise-thinking.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/03-advise-result.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/02-thinking.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/03-advice-headline.jpeg" width="220"/></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/04-advice-card-top.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/05-advice-card-outcomes.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/06-advice-card-risk.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/04-advice-talking-points.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/05-advice-outcomes-nextsteps.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/06-advice-risk-flag.jpeg" width="220"/></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/07-practice-home.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/08-practice-scenario.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/09-practice-chat.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/07-practice-list-1.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/08-practice-list-2.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/09-simulator-open.jpeg" width="220"/></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/10-practice-scorecard.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/11-today-challenge.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/12-today-streak.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/10-simulator-pushback.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/11-scorecard-top.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/12-scorecard-feedback.jpeg" width="220"/></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/13-today-past.jpeg" width="220"/></td>
-    <td><img src="docs/screenshots/14-today-counsel-prefill.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/13-today.jpeg" width="220"/></td>
+    <td><img src="docs/screenshots/14-today-scroll.jpeg" width="220"/></td>
     <td><img src="docs/screenshots/15-history.jpeg" width="220"/></td>
   </tr>
 </table>
