@@ -97,7 +97,17 @@ Scan the QR code with **Expo Go** on Android (same WiFi network). iOS Expo Go al
 
 ## Reflection
 
-[Will be filled in before submission.]
+### What was easy
+The 8x starter template gave me a working Expo + NativeWind + Reanimated shell within hours. Once design tokens were locked (Fraunces serif, gold on near-black), new screens dropped into a frame that already worked. Writing the AI system prompts also clicked early — constraining the model to strict JSON for the AdviceCard, and giving the simulator a specific persona + difficulty, produced sharp output on the first try.
+
+### What was difficult
+Three things hurt. **NVIDIA NIM's free-tier queueing** made the demo unusable, so I built a zero-dependency Node proxy and later switched the upstream to OpenRouter (DeepSeek primary, Gemini fallback). **An invisible `whatwg-fetch` polyfill** was swallowing AbortSignal callbacks on Android — fix was swapping fetch for a direct XHR wrapper. **A state race in the advice store** was overwriting successful AdviceCards with stale error states; the fix was a guard in the catch block.
+
+### What I'd change
+Real voice input (Expo SDK 55's STT is fragile, so it ships as "coming soon"). Streak persistence on Today. Converting any past situation into a simulator scenario with one extra AI call. Deploying the proxy as a Cloudflare Worker — that's the one change between this and a shippable product.
+
+### Working with AI on a tight build
+Specific, multi-step prompts (200–400 lines with task ordering and stop conditions) outperformed short follow-ups dramatically. AI tooling rewards engineering rigor more than cleverness — the same discipline that makes good code makes good AI collaboration.
 
 ---
 
