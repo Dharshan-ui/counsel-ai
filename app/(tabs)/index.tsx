@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import {
   View,
   ScrollView,
@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useFocusEffect, useLocalSearchParams } from 'expo-router'
 import { Mic } from 'lucide-react-native'
 import { Text } from '@/components/ui/Text'
 import AdviceCard from '@/components/AdviceCard'
@@ -18,6 +19,7 @@ import VoiceWaveform from '@/components/VoiceWaveform'
 import { TAB_BAR_CLEARANCE } from '@/components/TabBar'
 import { colors, radii, spacing, typeScale } from '@/lib/design/tokens'
 import { useAdviceStore, type AdviceCategory } from '@/lib/store/adviceStore'
+import { useToast } from '@/contexts/ToastContext'
 
 const CATEGORIES: AdviceCategory[] = [
   'Salary', 'Lease', 'Relationship', 'Career move', 'Conflict', 'Big decision',
@@ -28,7 +30,18 @@ const DEV_PROMPT =
 
 export default function AdviseScreen() {
   const insets = useSafeAreaInsets()
-  const { current, isLoading, error, submitSituation, retry, clearCurrent } = useAdviceStore()
+  const { showToast } = useToast()
+  const { dev } = useLocalSearchParams<{ dev?: string }>()
+  const { current, isLoading, error, submitSituation, retry, clearCurrent, prefillPrompt, setPrefillPrompt } = useAdviceStore()
+
+  useFocusEffect(
+    useCallback(() => {
+      if (prefillPrompt) {
+        setPrompt(prefillPrompt)
+        setPrefillPrompt(null)
+      }
+    }, [prefillPrompt, setPrefillPrompt])
+  )
 
   const [prompt, setPrompt] = useState('')
   const [category, setCategory] = useState<AdviceCategory | null>(null)
@@ -57,13 +70,9 @@ export default function AdviseScreen() {
     }
     setIsListening(true)
     setTimeout(() => {
-      setPrompt(prev =>
-        prev
-          ? prev + ' [Voice: my manager keeps avoiding the conversation about my promotion.]'
-          : 'My manager keeps avoiding the conversation about my promotion. The performance review is in two weeks and I need to force the issue.',
-      )
       setIsListening(false)
-    }, 2200)
+      showToast('Voice input — coming soon. Type your situation for now.', 'info')
+    }, 2000)
   }
 
   return (
@@ -151,7 +160,7 @@ export default function AdviseScreen() {
             </Pressable>
           </View>
 
-          {__DEV__ && (
+          {__DEV__ && dev === '1' && (
             <Pressable
               onPress={() => { setPrompt(DEV_PROMPT); handleSubmit(DEV_PROMPT) }}
               style={({ pressed }) => [s.devBtn, pressed && { opacity: 0.6 }]}

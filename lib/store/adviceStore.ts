@@ -27,6 +27,7 @@ type AdviceState = {
   current: SituationEntry | null
   isLoading: boolean
   error: string | null
+  prefillPrompt: string | null
 }
 
 type AdviceActions = {
@@ -34,6 +35,7 @@ type AdviceActions = {
   retry: () => Promise<void>
   clearCurrent: () => void
   deleteSituation: (id: string) => void
+  setPrefillPrompt: (p: string | null) => void
 }
 
 function parseAdviceJSON(raw: string): AdviceData {
@@ -73,6 +75,7 @@ export const useAdviceStore = create<AdviceState & AdviceActions>()(
       current: null,
       isLoading: false,
       error: null,
+      prefillPrompt: null,
 
       submitSituation: async (prompt, category) => {
         console.log('[store] submitSituation called, isLoading:', get().isLoading)
@@ -146,6 +149,8 @@ export const useAdviceStore = create<AdviceState & AdviceActions>()(
           situations: state.situations.filter(s => s.id !== id),
           current: state.current?.id === id ? null : state.current,
         })),
+
+      setPrefillPrompt: (p) => set({ prefillPrompt: p }),
     }),
     {
       name: 'counsel.situations.v1',

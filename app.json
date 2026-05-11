@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MyApp",
+    "name": "Counsel",
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -48,6 +48,7 @@
       ]
     },
     "web": {
+      "name": "Counsel — Before you decide.",
       "favicon": "./assets/icon.png"
     },
     "plugins": [

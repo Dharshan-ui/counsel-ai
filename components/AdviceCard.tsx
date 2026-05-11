@@ -41,7 +41,7 @@ function OutcomeChip({
 
 export default function AdviceCard({ advice }: { advice: AdviceData }) {
   const { width } = useWindowDimensions()
-  const stacked = width < 400
+  const stacked = width < 500
 
   return (
     <View style={s.card}>
